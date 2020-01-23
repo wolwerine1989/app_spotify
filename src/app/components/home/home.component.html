@@ -1,0 +1,37 @@
+
+<!-- <ul>
+    <li *ngFor="let pais of paises">
+     Pais: {{pais.name | uppercase}} - Capital: {{pais.capital | uppercase}} - Poblacion: {{pais.population | number}}
+    </li>
+</ul> -->
+
+
+<!-- aqui mando la lista de canciones, dentro de las tarjetas
+   respectivas con ayuda de un *ngFor="let item of items" -->
+<!-- <div class="card-columns"></div>
+<div  *ngFor="let cancion of nuevasCanciones" class="card-columns">
+    <div class="card">
+      <img class="card-img-top" [src]="cancion.images | noimage"  alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{cancion.name | uppercase}} </h5>
+        <p class="card-text">
+
+          <span *ngFor="let artista of cancion.artists" class="badge badge-pill badge-primary">{{artista.name}}</span>
+
+        </p>
+      </div>
+    </div>
+</div> -->
+
+<!-- Aqui desplego una mensaje de error el cual esta llamando a la funcion mensajeError con un *ngIf, la codificacion esta
+   en home.component.ts, desde error servicio comienza la funcion -->
+<div *ngIf="error" class="alert alert-danger animated fadeIn" >
+  <h3>Error</h3>
+  <p>
+    {{mensajeError}}
+  </p>
+</div>
+
+<app-loading *ngIf="loading"></app-loading>
+
+<app-tarjetas [items]="nuevasCanciones"></app-tarjetas>

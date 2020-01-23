@@ -1,0 +1,75 @@
+
+
+<app-loading class="m-5" *ngIf="loadingArtist"></app-loading>
+<!-- AQUI ESTOY DESPLEGANDO LA INFORMACION DEL ARTISTA. CUANDOse presione en una de las tarjetas
+  , QUE FUE IMPORTADO DE ARTISTA.TS 
+  img-thumball= es una propiedad de bootstrap y hace que se achique la imagen 
+  img-circle= permite que la imagen se encierre en un circulo-->
+<div class="row animated fadeIn" *ngIf="!loadingArtist">
+    <div class="col-2">
+      <img [src]="artista.images | noimage" class="img-thumball img-circle">
+    </div>
+    
+
+    <!-- Aqui estoy mandando el nombre del artista y si presiona el 
+      boton mandara directo a la pagin official del artista -->
+    <div class="col">
+      <h3 class="text-right">{{ artista.name }}</h3>
+        <p>
+          <a [href]="artista.external_urls.spotify" target="_blank">Ir a la pagina del artista</a>
+        </p>
+    </div>
+    
+    <div class="col-4 text-right">
+      <button routerLink="/search" class="btn-atras btn-outline-danger">Regresar</button>
+    </div>
+</div>
+
+<div class="row m-5">
+  <div class="col">
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Album</th>
+          <th>Cancion</th>
+          <th>Vista Previa</th>
+        </tr>
+    <!-- BUSCAR PARA QUE SIRVE THEAD -->
+      </thead>
+    
+      <!-- BUSCAR PARA QUE SIRVE <TBOdy> -->
+      <tbody >
+        <tr *ngFor="let track of TopTracks">
+          <td>
+            <!-- img-thumb: es una propiedad que esta declarada en style.css
+               el cual da un tamaño y ancho de 50px de la imagen -->
+            <img [src]="track.album.images | noimage" class="img-thumb" >
+          </td>
+          <td>{{track.album.name}}</td>
+          <td>{{track.name}}</td>
+          
+          <!-- Para agregar un audio con la nueva vesion de HTML se puede hacer, mediante el llamado "audio".
+          controls funciona para poder descargar, play entre otros. "SI NO SE AGREGA
+          CONTROLS NO APARECE EL REPRODUCTOR DE MUSICA" -->
+          <td>
+            <!-- <audio [src]="track.preview_url" controls></audio> -->
+
+            <!-- Aqui esta mandando un pipe domseguro para escuchar toda la cancion con el 
+              reproductor de spotify -->
+
+            <!-- PARA QUE FUNCIONE EL PIPE PEGAR EN LA CARPETA PIPES LUEGO IMPORTAR LA RUTA EN APP.MODULE.TS, DESPUES 
+            CONFIGURAR CON "track.uri | domseguro", TAL COMO ESTA ABAJO
+              Nota: lo demas del url del pipe se mando a domseguro esta como cons url -->
+            <iframe [src]="track.uri | domseguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>          </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+  </div>
+
+</div>
